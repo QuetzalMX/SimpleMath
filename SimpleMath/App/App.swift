@@ -16,7 +16,22 @@ final class App {
 
   init(window: UIWindow) {
     self.window = window
-    storage = UserDefaultsStorage(withKey: App.identifier, modelVersion: App.version)
+
+    // Do we have the previous data in UserDefaults?
+    let migrationData: MigrationData
+    if let savedJSONData = UserDefaults.standard.value(forKey: App.identifier) as? Data {
+      migrationData = try! JSONDecoder().decode(MigrationData.self, from: savedJSONData)
+    } else {
+      // We don't have previous data.
+      print("No data found for key \(App.identifier), generating default values")
+      migrationData = MigrationData(modelVersion: App.version,
+                                    settingsBundle: .default,
+                                    onboardingBundle: .default)
+    }
+
+    storage = UserDefaultsStorage(withKey: App.identifier,
+                                  modelVersion: App.version,
+                                  migrationData: migrationData)
     settings = StoredSettings(withStorage: storage)
   }
 

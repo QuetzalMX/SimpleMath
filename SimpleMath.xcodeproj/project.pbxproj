@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B830F37254686D9002F1F80 /* MigrationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B830F36254686D9002F1F80 /* MigrationData.swift */; };
 		E816109024274F1D00C699AA /* GreatSuccessOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E816108F24274F1D00C699AA /* GreatSuccessOverlayView.swift */; };
 		E8161092242750B100C699AA /* NumbersInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8161091242750B100C699AA /* NumbersInputView.swift */; };
 		E816109424275AF200C699AA /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E816109324275AF200C699AA /* Symbol.swift */; };
@@ -97,6 +98,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B830F36254686D9002F1F80 /* MigrationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationData.swift; sourceTree = "<group>"; };
 		E816108F24274F1D00C699AA /* GreatSuccessOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreatSuccessOverlayView.swift; sourceTree = "<group>"; };
 		E8161091242750B100C699AA /* NumbersInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersInputView.swift; sourceTree = "<group>"; };
 		E816109324275AF200C699AA /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 		E853EC6F24474C130004BDBE /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				9B830F36254686D9002F1F80 /* MigrationData.swift */,
 				E8AF253F243CCD8200A5DBD9 /* Storage.swift */,
 				E8FEF3962441D06C0033AA3B /* StorageMock.swift */,
 				E8FEF3922441CFEC0033AA3B /* UserDefaultsStorage.swift */,
@@ -622,6 +625,7 @@
 				E8FEF37B2441A36E0033AA3B /* Image+Symbol.swift in Sources */,
 				E8161098242776A900C699AA /* InputView.swift in Sources */,
 				E8B603E324449E7100F5E499 /* Int+IsPrime.swift in Sources */,
+				9B830F37254686D9002F1F80 /* MigrationData.swift in Sources */,
 				E85E7CA42438E17B0049438E /* MiniDeviceView.swift in Sources */,
 				E8FEF3772440CE8A0033AA3B /* ModalPresentation.swift in Sources */,
 				E8AF2527243C76AA00A5DBD9 /* NumberOfEquationsSettingView.swift in Sources */,
