@@ -10,13 +10,17 @@ final class Onboarding: ObservableObject {
 
   init(withStorage storage: Storage) {
     self.storage = storage
-    showSettingsHint = !storage.loadOnboardingBundle().seenSettingsHint
+    showSettingsHint = !storage.onboardingBundle.seenSettingsHint
   }
 
   func discardSettingsHint() {
     guard showSettingsHint else { return }
     showSettingsHint = false
-    let bundle = OnboardingBundle(seenSettingsHint: !showSettingsHint)
-    storage.store(onboardingBundle: bundle)
+    storage.onboardingBundle = OnboardingBundle(seenSettingsHint: !showSettingsHint)
+    do {
+      try storage.save()
+    } catch {
+      print("failed saving data :", error)
+    }
   }
 }

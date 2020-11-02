@@ -4,54 +4,41 @@
 
 import Foundation
 
-final class UserDefaultsStorage: Storage {
+final class UserDefaultsStorage {
   
   let modelVersion: String
   let key: String
-
-  private var migrationData: MigrationData
+  var settingsBundle: SettingsBundle
+  var onboardingBundle: OnboardingBundle
   
-  init(withKey: String, modelVersion: String, migrationData: MigrationData) {
+  init(withKey: String = App.identifier, modelVersion: String) {
     key = withKey
+    
     self.modelVersion = modelVersion
-    self.migrationData = migrationData
-  }
-}
-
-// MARK: - Settings
-extension UserDefaultsStorage {
-  
-  func store(settingsBundle: SettingsBundle) {
-    migrationData.settingsBundle = settingsBundle
-    save(storedData: migrationData)
-  }
-
-  func loadSettingsBundle() -> SettingsBundle {
-    return migrationData.settingsBundle
-  }
-}
-
-// MARK: - Onboarding
-extension UserDefaultsStorage {
-  
-  func store(onboardingBundle: OnboardingBundle) {
-    migrationData.onboardingBundle = onboardingBundle
-    save(storedData: migrationData)
-  }
-
-  func loadOnboardingBundle() -> OnboardingBundle {
-    return migrationData.onboardingBundle
-  }
-}
-
-extension UserDefaultsStorage {
-  
-  #warning("Can we make this function throw?")
-  private func save(storedData: MigrationData) {
-    do {
-      try UserDefaults.standard.set(JSONEncoder().encode(migrationData), forKey: key)
-    } catch {
-      print("failed saving data :", error)
+    
+    // Do we have the previous data in UserDefaults?
+    let migrationData: MigrationData
+    if let savedJSONData = UserDefaults.standard.value(forKey: key) as? Data {
+      migrationData = try! JSONDecoder().decode(MigrationData.self, from: savedJSONData)
+      settingsBundle = migrationData.settingsBundle
+      onboardingBundle = migrationData.onboardingBundle
+    } else {
+      // We don't have previous data.
+      print("No data found for key \(key), generating default values")
+      settingsBundle = .default
+      onboardingBundle = .default
     }
   }
+}
+
+extension UserDefaultsStorage : Storage {
+  
+  func save() throws {
+    let migrationData = MigrationData(modelVersion: modelVersion,
+                                      settingsBundle: settingsBundle,
+                                      onboardingBundle: onboardingBundle)
+    let encodedMigrationData = try JSONEncoder().encode(migrationData)
+    UserDefaults.standard.set(encodedMigrationData, forKey: key)
+  }
+  
 }

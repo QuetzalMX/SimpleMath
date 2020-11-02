@@ -14,13 +14,21 @@ final class StoredSettings: Settings {
 
   init(withStorage storage: Storage) {
     self.storage = storage
-    let settingsBundle = storage.loadSettingsBundle()
+    let settingsBundle = storage.settingsBundle
     publishSettings = .init(settingsBundle)
   }
 
   func updateSettings(bundle: SettingsBundle) {
     guard bundle != publishSettings.value else { return }
-    storage.store(settingsBundle: bundle)
+    
+    do {
+      storage.settingsBundle = bundle
+      try storage.save()
+    } catch {
+      print("failed saving data :", error)
+    }
+    
     publishSettings.value = bundle
+    
   }
 }

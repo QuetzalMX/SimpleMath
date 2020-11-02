@@ -5,8 +5,8 @@
 import Foundation
 
 protocol Storage: AnyObject {
-  func store(settingsBundle: SettingsBundle)
-  func loadSettingsBundle() -> SettingsBundle
-  func store(onboardingBundle: OnboardingBundle)
-  func loadOnboardingBundle() -> OnboardingBundle
+  var settingsBundle: SettingsBundle { get set }
+  var onboardingBundle: OnboardingBundle { get set }
+  
+  func save() throws
 }
